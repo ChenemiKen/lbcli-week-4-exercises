@@ -10,4 +10,4 @@ transaction="01000000000101c8b0928edebbec5e698d5f86d0474595d9f6a5b2e4e3772cd9d10
 txid=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq -r '.txid')
 UTXOs=$(bitcoin-cli -regtest decoderawtransaction $transaction | jq -r --arg txid "$txid" '.vout | map({txid: $txid, vout: .n})')
 # (60/10)*24*14=2016+25=2041
-bitcoin-cli -named -regtest createrawtransaction inputs="$UTXOs" outputs="{ \"$recipient\": 0.2, \"data\": \"$hex\" }"
+bitcoin-cli -named -regtest createrawtransaction inputs="$UTXOs" outputs="{ \"data\": \"$hex\", \"$recipient\": 0.2}"
